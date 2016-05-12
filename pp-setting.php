@@ -7,7 +7,7 @@
 require_once(dirname(__FILE__) . '/pp-config.php');
 
 /** Sets up database class */
-require(ABSPATH . PPINC . '/pp-db.php');
+require_once(ABSPATH . PPINC . '/pp-db.php');
 
 /** Load the database class file and instantiate the `$wpdb` global. */
 global $ppdb;
