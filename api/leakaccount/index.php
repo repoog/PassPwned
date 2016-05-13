@@ -55,7 +55,7 @@ if (filter_var($account, FILTER_VALIDATE_EMAIL)) {
 }
 
 function info_query($ppdb, $table_sql, $type_condition, $account) {
-	global $site_num;
+	global $site_num, $risk;
 	// Query existence leak information about email or username.
 	$table_array = $ppdb->query($table_sql, true);
 	foreach ($table_array as $table_obj) {
@@ -66,21 +66,17 @@ function info_query($ppdb, $table_sql, $type_condition, $account) {
 		if ($query_count > 0) {
 			$risk->leak = 1;
 			$site_array['name'] = $table_obj->site_name;
-			$site_array['url'] = $table_obj->site_url;
-			$site_array['info'] = $table_obj->site_info;
+			$site_array['domain'] = $table_obj->site_url;
+			$site_array['intro'] = $table_obj->site_info;
 			$risk->site[$site_num] = $site_array;
 			$site_num++;
 		}
 	}
-	return $risk;
 }
 
 // Leep field array to query all information in each filed type.
 for ($i=0; $i<count($field_array); $i++) {
-	$risk_json = info_query($ppdb, $field_array[$i]['table_sql'], $field_array[$i]['type_condition'], $account);
-	if ($risk_json != null) {
-		$risk = $risk_json;
-	}
+	info_query($ppdb, $field_array[$i]['table_sql'], $field_array[$i]['type_condition'], $account);
 }
 
 $ppdb->close();

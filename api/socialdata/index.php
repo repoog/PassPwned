@@ -83,7 +83,7 @@ if (filter_var($account, FILTER_VALIDATE_EMAIL)) {	// Verify account is email or
 
 // Query detail leak information about account.
 function detail_query($ppdb, $table_sql, $type_condition, $account) {
-	global $site_num;
+	global $site_num, $risk;
 	$table_array = $ppdb->query($table_sql, true);
 	foreach ($table_array as $table_obj) {
 		// Query all account detail information.
@@ -103,15 +103,11 @@ function detail_query($ppdb, $table_sql, $type_condition, $account) {
 			$site_num++;
 		}
 	}
-	return $risk;
 }
 
 // Leep field array to query all detail information in each filed type.
 for ($i=0; $i<count($field_array); $i++) {
-	$risk_json = detail_query($ppdb, $field_array[$i]['table_sql'], $field_array[$i]['type_condition'], $account);
-	if ($risk_json != null) {
-		$risk = $risk_json;
-	}
+	detail_query($ppdb, $field_array[$i]['table_sql'], $field_array[$i]['type_condition'], $account);
 }
 
 $ppdb->close();
