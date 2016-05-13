@@ -130,7 +130,7 @@ class ppdb {
 	
 	// Closes the current database connection.
 	public function close() {
-		$update_sql = "UPDATE sod_site_apicall SET count=" . $this->num_queries;
+		$update_sql = "UPDATE sod_site_apicall SET count = count + 1";
 		mysqli_query($this->dbh, $update_sql);
 		if (!$this->dbh) {
 			return false;
