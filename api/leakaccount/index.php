@@ -5,6 +5,9 @@
  */
 include_once(dirname(dirname(dirname(__FILE__))) . '/pp-setting.php');
 
+// CORS allow all cross site requests.
+header("Access-Control-Allow-Origin:*");
+
 $callback = htmlspecialchars(isset($_GET['callback']) ? trim($_GET['callback']) : '');
 $account = addslashes(isset($_GET["account"]) ? trim($_GET["account"]) : '');
 
