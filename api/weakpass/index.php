@@ -25,7 +25,7 @@ if ($plainpass === '') {
 $query_result = $ppdb->query($ppdb->prepare("SELECT plainpass FROM sod_site_weakpass WHERE plainpass = '%s'", $plainpass));
 $ppdb->close();
 
-if ($query_result > 1) {
+if ($query_result >= 1) {
 	$strength->weakness = true;
 }elseif ($query_result === 0) {
 	$strength->weakness = false;
