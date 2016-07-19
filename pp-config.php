@@ -1,16 +1,16 @@
 <?php
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for PassPwned */
-define('DB_NAME', 'social_data');
+define('DB_NAME', '');
 
 /** MySQL database username */
-define('DB_USER', 'social_data');
+define('DB_USER', '');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'S0c1@l_d@t@//');
+define('DB_PASSWORD', '');
 
 /** MySQL hostname */
-define('DB_HOST', 'localhost');
+define('DB_HOST', '');
 
 /** Database Charset to use */
 define('DB_CHARSET', 'UTF8' );

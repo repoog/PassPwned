@@ -18,7 +18,7 @@ $site_num = 0;	// Leak information site index.
 
 // Check post mode and client ip to convert to god query mode.
 if ($_SERVER['REMOTE_ADDR'] != $auth_ip) {
-	//exit(0);
+	exit(0);
 }
 
 // Verify account is empty or not.
