@@ -24,7 +24,7 @@ PassPwned 基于统一字段（即所有分表同类型字段字段名统一）�
 
 ## 基础表结构
 ### site_index
-<pre><code>
+<pre>
 CREATE TABLE `sod_site_index` (
   `s_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '站点ID',
   `table_name` varchar(50) NOT NULL COMMENT '站点表名',
@@ -34,10 +34,10 @@ CREATE TABLE `sod_site_index` (
   `data_amount` bigint(15) NOT NULL DEFAULT '0' COMMENT '数据量',
   PRIMARY KEY (`s_id`)
 )
-<code></pre>
+</pre>
 
 ### site_item
-<pre><code>
+<pre>
 CREATE TABLE `sod_site_item` (
   `s_id` int(10) NOT NULL COMMENT '站点ID',
   `username_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '用户名字段',
@@ -63,13 +63,13 @@ CREATE TABLE `sod_site_item` (
   `account_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '账户字段',
   `nickname_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '昵称字段'
 )
-<code></pre>
+</pre>
 
 ### api_call
-<pre><code>
+<pre>
 CREATE TABLE `sod_api_call` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `count` bigint(10) NOT NULL,
   PRIMARY KEY (`id`)
 )
-<code></pre>
+</pre>
