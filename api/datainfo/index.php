@@ -4,6 +4,7 @@
  * @remark: Used to query account leak situation for normal customers.
  */
 include(dirname(dirname(dirname(__FILE__))) . '/include/json.php');
+include(dirname(dirname(dirname(__FILE__))) . '/include/api.php');
 
 $json_obj = new JSON();
 

@@ -5,6 +5,7 @@
  */
 
 include(dirname(dirname(dirname(__FILE__))) . '/include/json.php');
+include(dirname(dirname(dirname(__FILE__))) . '/include/api.php');
 
 $account = addslashes(isset($_GET["account"]) ? trim($_GET["account"]) : '');
 
