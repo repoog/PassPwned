@@ -4,30 +4,26 @@
  * @remark: default used to query account leak situation for normal customers.
  */
 
-include_once(dirname(dirname(dirname(__FILE__))) . '/include/api.php');
+include(dirname(dirname(dirname(__FILE__))) . '/include/json.php');
 
 $account = addslashes(isset($_GET["account"]) ? trim($_GET["account"]) : '');
 
-// Avoid warning about creating default object with empty value.
-if (!isset($api)) 
-    $api = new stdClass();
-$api->state = "Fail";
+$json_obj = new JSON();
 
 // Verify account is empty or not.
 if ($account === '') {
-	$json = json_encode($api);
-    echo $json;
+    $json_obj->output();
 	exit(0);
 }
 
 // Get searching account result set.
 $api_obj = new API();
 $result_set = $api_obj->search($account);
-$api->state = "Success";
+$json_obj->set_success();
 $index = 0;
 foreach ($result_set as $site) {
     // Convert site information to json format.
-    $api->site[$index]['info'] = $site[0];
+    $json_obj->set_item("site[" . $index . "]['info']", $site[0]);
 
     // Convert data item name to json format.
     $item = array();
@@ -38,9 +34,8 @@ foreach ($result_set as $site) {
             $item_index++;
         }
     }
-    $api->site[$index]['data'] = $item;
+    $json_obj->set_item("site[" . $index . "]['data']", $item);
     $index++;
 }
 
-$json = json_encode($api);
-echo $json;
+$json_obj->output();
