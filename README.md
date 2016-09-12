@@ -23,6 +23,7 @@ config.php 为接口配置文件，其中可配置的内容包括：
 PassPwned 基于统一字段（即所有分表同类型字段字段名统一）和分表设计，并使用基础表作为索引查询依据，即查询时基于参数类型从基础表site_item中确认数据来源以及数据表名，继而查询同类型下所有数据表信息。
 
 ## 基础表结构
+### site_index
 <pre><code>
 CREATE TABLE `sod_site_index` (
   `s_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '站点ID',
