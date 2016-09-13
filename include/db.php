@@ -92,6 +92,9 @@ class DB
 				$query_statement = $this->prepare($query_statement, $args);
 			}
 			$this->result = mysqli_query($this->db_handle, $query_statement);
+			if (mysqli_errno($this->db_handle)) {
+				return FALSE;
+			}
 		}
 
         $this->last_result = array();

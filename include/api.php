@@ -88,10 +88,15 @@ class API
                 $table_sql[2] = "SELECT b.s_id, b.table_name, b.site_name, b.site_url, b.site_info " .
                                 "FROM " . $this->item_table . " a, " . $this->index_table . " b " .
                                 "WHERE a.s_id = b.s_id AND a.realname_item = 1";
+                $this->condition_part = array("username = %s", "nickname = %s", "realname = %s");
                 break;
         }
-        $this->condition_part = $account_type . " = %s";
-        
+       
+        // Handle condition except default type.
+        if (!isset($this->condition_part)) {
+            $this->condition_part = $account_type . " = %s";
+        }
+
         if (!is_array($table_sql)) {
             $table_set = $this->db_obj->query($table_sql);
         }else {
@@ -128,8 +133,19 @@ class API
     private function get_site_data($site_item, $account)
     {
         $site_info[] = array('name' => $site_item->site_name, 'domain' => $site_item->site_url, 'intro' => $site_item->site_info);
-        $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part;
-        $data_set = $this->db_obj->query($data_sql, $account);
+        if (!is_array($this->condition_part)) {
+            $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part;
+            $data_set = $this->db_obj->query($data_sql, $account);
+        }else {
+            for ($i=0; $i<count($this->condition_part); $i++) {
+                $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part[$i];
+                $data_set = $this->db_obj->query($data_sql, $account);
+                if ($data_set == FALSE) {
+                    continue;
+                }
+            }
+        }
+        
         if ($data_set != NULL) {
             $this->data_set[$this->data_index] = array($site_info, $data_set);
             $this->data_index++;
