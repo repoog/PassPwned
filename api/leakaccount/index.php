@@ -22,10 +22,8 @@ $api_obj = new API();
 $result_set = $api_obj->search($account);
 $json_obj->set_success();
 $index = 0;
+$site_set = array();
 foreach ($result_set as $site) {
-    // Convert site information to json format.
-    $json_obj->set_item("site[" . $index . "]['info']", $site[0]);
-
     // Convert data item name to json format.
     $item = array();
     $item_index = 0;
@@ -35,8 +33,9 @@ foreach ($result_set as $site) {
             $item_index++;
         }
     }
-    $json_obj->set_item("site[" . $index . "]['data']", $item);
+    $site_set[$index] = array('info' => $site[0], 'data' => $item);
     $index++;
 }
+$json_obj->set_item("site", $site_set);
 
 $json_obj->output();
