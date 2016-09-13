@@ -15,6 +15,8 @@ class API
     private $db_obj;
     // Account type array
     private $type_ary = array('email', 'mobile', 'qq', 'idcard');
+    // Default type (username, nickname and real name) classes
+    private $default_type;
     // Data query condition part
     private $condition_part;
     // Data set index
@@ -79,16 +81,18 @@ class API
                 break;
             // Other types such as username, nickname and real name
             default:
-                $table_sql[0] = "SELECT b.s_id, b.table_name, b.site_name, b.site_url, b.site_info " .
-                                "FROM " . $this->item_table . " a, " . $this->index_table . " b " .
-                                "WHERE a.s_id = b.s_id AND a.username_item = 1";
-                $table_sql[1] = "SELECT b.s_id, b.table_name, b.site_name, b.site_url, b.site_info " .
-                                "FROM " . $this->item_table . " a, " . $this->index_table . " b " .
-                                "WHERE a.s_id = b.s_id AND a.nickname_item = 1";
-                $table_sql[2] = "SELECT b.s_id, b.table_name, b.site_name, b.site_url, b.site_info " .
-                                "FROM " . $this->item_table . " a, " . $this->index_table . " b " .
-                                "WHERE a.s_id = b.s_id AND a.realname_item = 1";
-                $this->condition_part = array("username = %s", "nickname = %s", "realname = %s");
+                $table_sql['username'] = "SELECT b.s_id, b.table_name, b.site_name, b.site_url, b.site_info " .
+                                        "FROM " . $this->item_table . " a, " . $this->index_table . " b " .
+                                        "WHERE a.s_id = b.s_id AND a.username_item = 1";
+                $table_sql['nickname'] = "SELECT b.s_id, b.table_name, b.site_name, b.site_url, b.site_info " .
+                                        "FROM " . $this->item_table . " a, " . $this->index_table . " b " .
+                                        "WHERE a.s_id = b.s_id AND a.nickname_item = 1";
+                $table_sql['realname'] = "SELECT b.s_id, b.table_name, b.site_name, b.site_url, b.site_info " .
+                                        "FROM " . $this->item_table . " a, " . $this->index_table . " b " .
+                                        "WHERE a.s_id = b.s_id AND a.realname_item = 1";
+                $this->condition_part = array("username" => "username = %s", 
+                                        "nickname" => "nickname = %s", 
+                                        "realname" => "realname = %s");
                 break;
         }
        
@@ -100,11 +104,11 @@ class API
         if (!is_array($table_sql)) {
             $table_set = $this->db_obj->query($table_sql);
         }else {
-            for($i=0; $i<count($table_sql); $i++) {
-                $table_set[$i] = $this->db_obj->query($table_sql[$i]);
+            foreach ($table_sql as $key => $value) {
+                $table_set[$key] = $this->db_obj->query($table_sql[$key]);
             }
         }
-        
+
         return $table_set;
     }
     
@@ -112,16 +116,21 @@ class API
     public function search($account)
     {
         $table_set = $this->get_table_set($account);
-        for($i=0; $i<count($table_set); $i++) {
-            if (!is_array($table_set[$i])) {
+
+        // Regular account type
+        if (count($table_set) == count($table_set, 1)) {
+            for($i=0; $i<count($table_set); $i++) {
                 $this->get_site_data($table_set[$i], $account);
-            }else {
-                for($j=0; $j<count($table_set[$i]); $j++)
-                {
-                    $this->get_site_data($table_set[$i][$j], $account);
+            }
+        }else {
+            foreach ($table_set as $key => $table) {
+                for ($j = 0; $j < count($table); $j++) {
+                    $this->get_site_data($table[$j], $account);
+                    $this->default_type = $key;
                 }
             }
         }
+        
         // Update api call amount
         $api_call_sql = "UPDATE " . $this->call_table . " SET count = count + 1";
         $this->db_obj->update($api_call_sql);
@@ -135,17 +144,11 @@ class API
         $site_info[] = array('name' => $site_item->site_name, 'domain' => $site_item->site_url, 'intro' => $site_item->site_info);
         if (!is_array($this->condition_part)) {
             $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part;
-            $data_set = $this->db_obj->query($data_sql, $account);
         }else {
-            for ($i=0; $i<count($this->condition_part); $i++) {
-                $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part[$i];
-                $data_set = $this->db_obj->query($data_sql, $account);
-                if ($data_set == FALSE) {
-                    continue;
-                }
-            }
+            $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . @$this->condition_part[$this->default_type];
         }
-        
+
+        $data_set = $this->db_obj->query($data_sql, $account);
         if ($data_set != NULL) {
             $this->data_set[$this->data_index] = array($site_info, $data_set);
             $this->data_index++;
