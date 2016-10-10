@@ -24,15 +24,18 @@ class API
     // Data set result
     private $data_set = array();
     // Site index table name
-    private $index_table = DB_PREFIX . 'site_index';
+    private $index_table;
     // Table item table name
-    private $item_table = DB_PREFIX . 'site_item';
+    private $item_table;
     // API call table name
-    private $call_table = DB_PREFIX . 'api_call';
+    private $call_table;
     
     public function __construct()
     {
         $this->db_obj = DB::get_instance();
+        $this->index_table = DB_PREFIX . 'site_index';
+        $this->item_table = DB_PREFIX . 'site_item';
+        $this->call_table = DB_PREFIX . 'api_call';
     }
 
     // Get parameter type within 'email','mobile','qq','id card'.
