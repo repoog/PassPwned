@@ -20,7 +20,6 @@ if ($account === '') {
 // Get searching account result set.
 $api_obj = new API();
 $result_set = $api_obj->search($account);
-$json_obj->set_success();
 $index = 0;
 $site_set = array();
 foreach ($result_set as $site) {
@@ -37,5 +36,8 @@ foreach ($result_set as $site) {
     $index++;
 }
 $json_obj->set_item("site", $site_set);
+if (!empty($site_set)) {
+    $json_obj->set_success();
+}
 
 $json_obj->output();

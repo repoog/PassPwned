@@ -6,7 +6,7 @@
  * Created date: 2016/5/9
  */
 
-require_once(dirname(dirname(__FILE__)) . '/config.php');
+require(dirname(dirname(__FILE__)) . '/config.php');
 
 class DB
 {

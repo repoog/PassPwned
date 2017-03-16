@@ -7,7 +7,7 @@
  */
 
 require(dirname(__FILE__) . '/db.php');
-require_once(dirname(dirname(__FILE__)) . '/config.php');
+require(dirname(dirname(__FILE__)) . '/config.php');
 
 class API
 {
