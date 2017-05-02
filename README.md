@@ -42,37 +42,36 @@ CREATE TABLE `sod_site_index` (
 ### site_item
 <pre>
 CREATE TABLE `sod_site_item` (
-  `s_id` int(10) NOT NULL COMMENT '站点ID',
-  `username_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '用户名字段',
-  `password_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '密文密码字段',
-  `email_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '邮箱字段',
-  `salt_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '盐值字段',
-  `ip_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'IP字段',
-  `question_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '问题字段',
-  `answer_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '回答字段',
-  `plainpass_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '明文密码字段',
-  `mobile_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '手机字段',
-  `realname_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '真实姓名字段',
-  `sex_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别字段',
-  `qq_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'QQ字段',
-  `birthday_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '生日字段',
-  `idcard_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '身份证字段',
-  `address_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '住址字段',
-  `university_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '大学字段',
-  `education_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '学历字段',
-  `company_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '公司字段',
-  `post_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '职位字段',
-  `phone_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '座机字段',
-  `account_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '账户字段',
-  `nickname_item` tinyint(1) NOT NULL DEFAULT '0' COMMENT '昵称字段'
+  s_id int(10) NOT NULL COMMENT '站点ID',
+  username_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '用户名字段',
+  password_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '密文密码字段',
+  email_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '邮箱字段',
+  salt_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '盐值字段',
+  ip_item tinyint(1) NOT NULL DEFAULT '0' COMMENT 'IP字段',
+  question_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '问题字段',
+  answer_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '回答字段',
+  plainpass_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '明文密码字段',
+  mobile_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '手机字段',
+  realname_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '真实姓名字段',
+  sex_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别字段',
+  qq_item tinyint(1) NOT NULL DEFAULT '0' COMMENT 'QQ字段',
+  birthday_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '生日字段',
+  idcard_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '身份证字段',
+  address_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '住址字段',
+  university_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '大学字段',
+  education_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '学历字段',
+  company_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '公司字段',
+  post_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '职位字段',
+  phone_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '座机字段',
+  account_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '账户字段',
+  nickname_item tinyint(1) NOT NULL DEFAULT '0' COMMENT '昵称字段'
 )
 </pre>
 
 ### api_call
 <pre>
 CREATE TABLE `sod_api_call` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `count` bigint(10) NOT NULL,
-  PRIMARY KEY (`id`)
+  id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  count bigint(10) NOT NULL
 )
 </pre>
