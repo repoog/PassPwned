@@ -16,7 +16,7 @@ PassPwned 基于MySQL数据库设计，采用统一的表前缀，表类型分�
 ## 接口配置
 config.php 为接口配置文件，其中可配置的内容包括：
 * 数据库连接信息
-* 表前缀信息（默认为sod_
+* 表前缀信息（默认为sod_）
 * 基础表表名信息
 
 ## 设计思路
@@ -25,7 +25,7 @@ PassPwned 基于统一字段（即所有分表同类型字段字段名统一）�
 若有新数据源添加，仅需在导入数据后自定义分表表名，添加site_index记录并增加site_item记录说明字段是否存在即可（新的字段亦需增加表字段）。
 
 ## 基础表结构
-在数据库连接配置文件config.php配置之后，可使用`php -f initialize.php`创建基础表。
+在接口配置文件config.php配置之后，可使用`php -f initialize.php`创建基础表。
 
 ### site_index
 <pre>
