@@ -30,12 +30,12 @@ PassPwned 基于统一字段（即所有分表同类型字段字段名统一）�
 ### site_index
 <pre>
 CREATE TABLE `sod_site_index` (
-  `s_id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '站点ID',
-  `table_name` varchar(50) NOT NULL COMMENT '站点表名',
-  `site_name` varchar(20) NOT NULL COMMENT '站点名称',
-  `site_url` varchar(30) DEFAULT NULL COMMENT '站点链接',
-  `site_info` varchar(100) DEFAULT NULL COMMENT '站点信息',
-  `data_amount` bigint(15) NOT NULL DEFAULT '0' COMMENT '数据量'
+  s_id int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '站点ID',
+  table_name varchar(50) NOT NULL COMMENT '站点表名',
+  site_name varchar(20) NOT NULL COMMENT '站点名称',
+  site_url varchar(30) DEFAULT NULL COMMENT '站点链接',
+  site_info varchar(100) DEFAULT NULL COMMENT '站点信息',
+  data_amount bigint(15) NOT NULL DEFAULT '0' COMMENT '数据量'
 )
 </pre>
 
