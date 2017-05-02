@@ -25,18 +25,17 @@ PassPwned 基于统一字段（即所有分表同类型字段字段名统一）�
 若有新数据源添加，仅需在导入数据后自定义分表表名，添加site_index记录并增加site_item记录说明字段是否存在即可（新的字段亦需增加表字段）。
 
 ## 基础表结构
-在接口配置文件config.php配置之后，可使用`php -f initialize.php`创建基础表。
+在接口配置文件config.php配置之后，可使用`php -f initialize.php`创建以下基础表。
 
 ### site_index
 <pre>
 CREATE TABLE `sod_site_index` (
-  `s_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '站点ID',
+  `s_id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '站点ID',
   `table_name` varchar(50) NOT NULL COMMENT '站点表名',
   `site_name` varchar(20) NOT NULL COMMENT '站点名称',
   `site_url` varchar(30) DEFAULT NULL COMMENT '站点链接',
   `site_info` varchar(100) DEFAULT NULL COMMENT '站点信息',
-  `data_amount` bigint(15) NOT NULL DEFAULT '0' COMMENT '数据量',
-  PRIMARY KEY (`s_id`)
+  `data_amount` bigint(15) NOT NULL DEFAULT '0' COMMENT '数据量'
 )
 </pre>
 
