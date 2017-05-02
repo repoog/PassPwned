@@ -27,7 +27,7 @@ PassPwned 基于统一字段（即所有分表同类型字段字段名统一）�
 ## 基础表结构
 在接口配置文件config.php配置之后，可使用`php -f initialize.php`创建以下基础表。
 
-### site_index
+### sod_site_index
 <pre>
 CREATE TABLE `sod_site_index` (
   s_id int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '站点ID',
@@ -39,7 +39,7 @@ CREATE TABLE `sod_site_index` (
 )
 </pre>
 
-### site_item
+### sod_site_item
 <pre>
 CREATE TABLE `sod_site_item` (
   s_id int(10) NOT NULL COMMENT '站点ID',
@@ -68,7 +68,7 @@ CREATE TABLE `sod_site_item` (
 )
 </pre>
 
-### api_call
+### sod_api_call
 <pre>
 CREATE TABLE `sod_api_call` (
   id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
