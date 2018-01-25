@@ -3,7 +3,17 @@ PassPwned 是一个用于查询社工库的API接口，该接口基于MySQL数�
 * 查询社工库站点/数据量/接口调用统计；
 * 查询基于关键词的站点信息；
 * 查询基于关键词的数据详细信息；
-接口返回采用Json格式，用于同域站点下的接口调用和访问。
+接口根据参数自动识别参数类型进行查询，返回采用Json格式，用于同域站点下的接口调用和访问。
+
+## 接口使用
+/initialize.php
+创建基础表结构。
+/api/datainfo/index.php
+获取表数量、总数据量及调用次数。
+/api/leakaccount/index.php?account=
+根据account查询所有表命中情况，但不显示详细记录。
+/api/socialdata/index.php?account=
+根据account查询所有表命中情况，并显示详细记录。
 
 ## 接口设计
 PassPwned 基于MySQL数据库设计，采用统一的表前缀，表类型分为站点数据表和基础表。

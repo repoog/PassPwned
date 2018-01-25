@@ -9,7 +9,7 @@ define('DB_USER', '');
 define('DB_PASSWORD', '');
 
 /** MySQL hostname */
-define('DB_HOST', '');
+define('DB_HOST', 'localhost');
 
 /** Database Charset to use */
 define('DB_CHARSET', 'UTF8');

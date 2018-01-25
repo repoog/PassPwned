@@ -7,7 +7,7 @@
  */
 
 require(dirname(__FILE__) . '/db.php');
-require(dirname(dirname(__FILE__)) . '/config.php');
+require_once(dirname(dirname(__FILE__)) . '/config.php');
 
 class API
 {
@@ -96,6 +96,7 @@ class API
                 $this->condition_part = array("username" => "username = %s", 
                                         "nickname" => "nickname = %s", 
                                         "realname" => "realname = %s");
+
                 break;
         }
        
@@ -128,8 +129,8 @@ class API
         }else {
             foreach ($table_set as $key => $table) {
                 for ($j = 0; $j < count($table); $j++) {
-                    $this->get_site_data($table[$j], $account);
                     $this->default_type = $key;
+                    $this->get_site_data($table[$j], $account);
                 }
             }
         }
@@ -148,7 +149,7 @@ class API
         if (!is_array($this->condition_part)) {
             $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part;
         }else {
-            $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . @$this->condition_part[$this->default_type];
+            $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part[$this->default_type];
         }
 
         $data_set = $this->db_obj->query($data_sql, $account);
