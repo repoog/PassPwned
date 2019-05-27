@@ -93,16 +93,16 @@ class API
                 $table_sql['realname'] = "SELECT b.s_id, b.table_name, b.site_name, b.site_url, b.site_info " .
                                         "FROM " . $this->item_table . " a, " . $this->index_table . " b " .
                                         "WHERE a.s_id = b.s_id AND a.realname_item = 1";
-                $this->condition_part = array("username" => "username = %s", 
-                                        "nickname" => "nickname = %s", 
-                                        "realname" => "realname = %s");
+                $this->condition_part = array("username" => "username = ?",
+                                        "nickname" => "nickname = ?",
+                                        "realname" => "realname = ?");
 
                 break;
         }
        
         // Handle condition except default type.
         if (!isset($this->condition_part)) {
-            $this->condition_part = $account_type . " = %s";
+            $this->condition_part = $account_type . " = ?";
         }
 
         if (!is_array($table_sql)) {
@@ -128,10 +128,8 @@ class API
             }
         }else {
             foreach ($table_set as $key => $table) {
-                for ($j = 0; $j < count($table); $j++) {
-                    $this->default_type = $key;
-                    $this->get_site_data($table[$j], $account);
-                }
+                $this->default_type = $key;
+                $this->get_site_data($table, $account);
             }
         }
         
@@ -145,14 +143,14 @@ class API
     // Get particular site data item.
     private function get_site_data($site_item, $account)
     {
-        $site_info[] = array('name' => $site_item->site_name, 'domain' => $site_item->site_url, 'intro' => $site_item->site_info);
+        $site_info[] = array('name' => $site_item['site_name'], 'domain' => $site_item['site_url'], 'intro' => $site_item['site_info']);
         if (!is_array($this->condition_part)) {
-            $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part;
+            $data_sql = "SELECT * FROM `" . $site_item['table_name'] . "` WHERE " . $this->condition_part;
         }else {
-            $data_sql = "SELECT * FROM `" . $site_item->table_name . "` WHERE " . $this->condition_part[$this->default_type];
+            $data_sql = "SELECT * FROM `" . $site_item['table_name'] . "` WHERE " . $this->condition_part[$this->default_type];
         }
 
-        $data_set = $this->db_obj->query($data_sql, $account);
+        $data_set = $this->db_obj->query($data_sql, array('s', $account));
         if ($data_set != NULL) {
             $this->data_set[$this->data_index] = array($site_info, $data_set);
             $this->data_index++;
